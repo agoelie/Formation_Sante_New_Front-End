@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-
+import  Home from '../src/components/Home.jsx';
 function App() {
 
   return (
@@ -7,9 +7,11 @@ function App() {
       <BrowserRouter>
       
       <Routes>
+
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
+
+        {/* <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} /> */}
       </Routes>
       
       </BrowserRouter>
@@ -17,4 +19,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
