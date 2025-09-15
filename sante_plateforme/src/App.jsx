@@ -4,6 +4,7 @@ import CoursList from './components/CoursList.jsx';
 import Library from './components/Library.jsx';
 import Register from './components/Register.jsx';
 import Login from './components/Login.jsx';
+import Reading from './components/Reading.jsx';
 function App() {
 
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/Library" element={<Library />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />
+        <Route path="/Reading" element={<Reading />} />
         {/* <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} /> */}
       </Routes>

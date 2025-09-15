@@ -20,9 +20,9 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <nav className="w-full flex items-center justify-between px-6 py-3 border-b">
+    <nav className="w-full flex items-center justify-between px-6 py-3 border-b ">
       {/* Partie gauche */}
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-20 ml-10 g ">
         {/* Logo */}
         <div className="w-10 h-10 bg-blue-800"></div>
 
