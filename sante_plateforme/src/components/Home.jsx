@@ -3,7 +3,7 @@ import React from 'react'
 import Navbar from './ui/Navbar'
 import HeroSection from './ui/HeroSection';
 import FeaturesSection from './ui/FeaturesSection';
-import CourseList from './ui/CourseList';
+import Courses from './ui/Courses';
 import Testimonials from './ui/Testimonials';
 import FaqSection from './ui/FaqSection';
 import Footer from './ui/Footer';
@@ -13,7 +13,7 @@ const Home = () => {
         <Navbar />
         <HeroSection /> 
         <FeaturesSection/>  
-        <CourseList/>
+        <Courses/>
         <Testimonials/> 
         <FaqSection/>   
         <Footer/>    

@@ -5,41 +5,41 @@ const courses = [
     id: 1,
     title: "Hygiène et Prévention des Infections",
     rating: 4.5,
-    image: "/higiène2.jpg",
+    image: "/public/higiène2.jpg",
   },
   {
     id: 2,
     title: "Hygiène et Prévention des Infections",
     rating: 4.5,
-    image: "/medecine.jpg",
+    image: "/public/medecine.jpg",
   },
   {
     id: 3,
     title: "Hygiène et Prévention des Infections",
     rating: 4.5,
-    image: "public/Medecine2.jpg",
+    image: "/public/Medecine2.jpg",
   },
   {
     id: 4,
     title: "Hygiène et Prévention des Infections",
     rating: 4.5,
-    image: "public/pediatrie1.jpg",
+    image: "/public/pediatrie1.jpg",
   },
   {
     id: 5,
     title: "Hygiène et Prévention des Infections",
     rating: 4.5,
-    image: "public/pediatrie2.jpg",
+    image: "/public/pediatrie2.jpg",
   },
   {
     id: 6,
     title: "Hygiène et Prévention des Infections",
     rating: 4.5,
-    image: "public/pediatrie1.jpg",
+    image: "/public/pediatrie1.jpg",
   },
 ];
 
-const CourseList = () => {
+const Courses = () => {
   return (
     <div className="w-full px-6 py-10 ml-10 mr-10">
       {/* Grille des cours */}
@@ -85,4 +85,4 @@ const CourseList = () => {
   );
 };
 
-export default CourseList;
+export default Courses;
