@@ -6,9 +6,9 @@ const HeroSection = () => {
       {/* Image principale avec flèches */}
       <div className="relative w-full h-64">
         <img
-          src="../assets/service .jpg"
+          src="public/higiène2.jpg"
           alt="slider"
-          className="w-full h-full object-cover "
+          className="w-full h-100 object-cover "
         />
         {/* Flèche gauche */}
         <button className="absolute top-1/2 left-4 -translate-y-1/2 bg-white p-2 rounded-full shadow">
@@ -59,12 +59,12 @@ const HeroSection = () => {
         </div> 
 
         {/* Image droite */}
-        <div className="md:w-1/2">
+        <div className="md:w-1/2 pt-20 ml-40 ">
           <img
-            src="https://via.placeholder.com/400x250"
+            src="public/medecine_doite.jpg"
             alt="formation santé"
             className="rounded-lg"
-          />
+          />    
         </div>
       </div>
     </section>

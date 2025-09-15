@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import  Home from '../src/components/Home.jsx';
+import CoursList from './components/CoursList.jsx';
 function App() {
 
   return (
@@ -9,6 +10,8 @@ function App() {
       <Routes>
 
         <Route path="/" element={<Home />} />
+        <Route path="CoursList" element={<CoursList />} />
+
 
         {/* <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} /> */}
