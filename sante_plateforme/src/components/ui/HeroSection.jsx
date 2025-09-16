@@ -4,7 +4,7 @@ const HeroSection = () => {
   return (
     <section className="w-full">
       {/* Image principale avec flèches */}
-      <div className="relative w-full h-64">
+      <div className="relative w-full h-64 mt-20">
         <img
           src="public/higiène2.jpg"
           alt="slider"

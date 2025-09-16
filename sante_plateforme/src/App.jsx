@@ -7,6 +7,10 @@ import Login from './components/Login.jsx';
 import Reading from './components/Reading.jsx';
 import DashboardLibrary from './components/DashboardLibrary.jsx';
 import DashboardCours from './components/DashboardCours.jsx';
+import DashboardApi from './components/DashboardApi.jsx';
+import DashboardUsers from './components/DashboardUsers.jsx';
+import DashboardSetting from './components/DashboardSetting.jsx'; 
+import News from './components/News.jsx';
 function App() {
 
   return (
@@ -36,6 +40,12 @@ function App() {
         <Route path="/Reading" element={<Reading />} />
         <Route path="/DashboardLibrary" element={<DashboardLibrary />} />
         <Route path="/DashboardCours" element={<DashboardCours />} />
+        <Route path="/DashboardApi" element={<DashboardApi />} />
+        <Route path="/DashboardUsers" element={<DashboardUsers />} />
+        <Route path="/DashboardSetting" element={<DashboardSetting />} />
+        <Route path="/News" element={<News />} />
+
+
         {/* <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} /> */}
       </Routes>
