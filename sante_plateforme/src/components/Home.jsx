@@ -1,6 +1,6 @@
 
-import React from 'react'
-import Navbar from './ui/Navbar'
+import React from 'react';
+import Navbar from './ui/Navbar';
 import HeroSection from './ui/HeroSection';
 import FeaturesSection from './ui/FeaturesSection';
 import Courses from './ui/Courses';

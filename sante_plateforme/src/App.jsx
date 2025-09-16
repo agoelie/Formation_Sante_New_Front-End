@@ -5,6 +5,7 @@ import Library from './components/Library.jsx';
 import Register from './components/Register.jsx';
 import Login from './components/Login.jsx';
 import Reading from './components/Reading.jsx';
+import DashboardLibrary from './components/DashboardLibrary.jsx';
 function App() {
 
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Reading" element={<Reading />} />
+        <Route path="/DashboardLibrary" element={<DashboardLibrary />} />
         {/* <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} /> */}
       </Routes>
