@@ -12,7 +12,20 @@ function App() {
     <>
       <BrowserRouter>
       
+
+
+        {/* Navigation */}
+      {/* <nav className="flex gap-6 bg-gray-100 p-4 shadow">
+        <Link to="/" className="hover:text-blue-600">Home</Link>
+        <Link to="/library" className="hover:text-blue-600">Bibliothèque</Link>
+        <Link to="/dashboard" className="hover:text-blue-600">Dashboard</Link>
+      </nav> */}
+
       <Routes>
+
+      
+
+        {/* pages */}
 
         <Route path="/" element={<Home />} />
         <Route path="/CoursList" element={<CoursList />} />
