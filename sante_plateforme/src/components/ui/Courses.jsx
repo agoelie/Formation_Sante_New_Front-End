@@ -60,7 +60,7 @@ const Courses = () => {
               </h3>
               <div className="flex items-center text-sm mb-3">
                 <span className="text-gray-700 mr-2">{course.rating}</span>
-                <span className="text-yellow-500">⭐⭐⭐⭐☆</span>
+                <span className="text-yellow-500">⭐⭐⭐☆</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="bg-red-700 text-white px-2 py-1 text-xs rounded">

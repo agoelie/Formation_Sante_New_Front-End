@@ -291,7 +291,7 @@ const newsData = [
     title: "Lancement du nouveau programme de santé",
     subtitle: "Publié le 15 Septembre 2025",
     body: "Notre plateforme innove avec des formations spécialisées pour les professionnels de santé. Ce programme inclut des ateliers pratiques, des conférences en ligne et des certifications reconnues.",
-    image: "/temoignage1.jpg"
+    image: "/temoignage2.jpg"
   },
   {
     id: 2,
@@ -305,7 +305,7 @@ const newsData = [
     title: "Nouveaux cours disponibles",
     subtitle: "Publié le 08 Septembre 2025",
     body: "Découvrez nos cours interactifs dans divers domaines de la médecine. Chaque cours est conçu pour être flexible, accessible et certifiant.",
-    image: "/temoignage1.jpg"
+    image: "/temoignage_femme1.jpg"
   }
 ];
 

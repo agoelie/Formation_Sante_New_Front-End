@@ -294,7 +294,7 @@ function App() {
           {/* Formulaire */}
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Nom et Prénom */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="relative">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Prénom
@@ -344,7 +344,7 @@ function App() {
                   />
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* Email */}
             <div className="relative">
@@ -468,14 +468,14 @@ function App() {
           </form>
 
           {/* Liens de connexion */}
-          {/* <div className="mt-8 text-center">
+          <div className="mt-8 text-center">
             <p className="text-gray-600">
-              Vous avez déjà un compte ?{' '}
+              Vous avez déjà un compte ?{''} 
               <button className="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200">
-                Se connecter
+                S'inscrire
               </button>
             </p>
-          </div> */}
+          </div>
         </div>
       </div>
     </div>
