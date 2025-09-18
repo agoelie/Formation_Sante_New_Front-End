@@ -5,7 +5,7 @@ import PromoSection from './ui/PromoSection'
 // import Courses from './ui/Courses'
 import AllCourses from './ui/AllCourses'
 import Footer from './ui/Footer'
-
+import CategoriesCoursSection from './ui/CategoriesCoursSection'
 
 const CourseList = () => {
     return (
@@ -14,6 +14,7 @@ const CourseList = () => {
             <Navbar/>
             <PromoSection/>
             {/* <Courses/> */}
+            <CategoriesCoursSection/>
             <AllCourses/>
             <Footer/>
             

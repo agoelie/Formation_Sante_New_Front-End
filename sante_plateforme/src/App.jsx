@@ -12,6 +12,9 @@ import DashboardUsers from './components/DashboardUsers.jsx';
 import DashboardSetting from './components/DashboardSetting.jsx'; 
 import News from './components/News.jsx';
 import Contact from './components/Contact.jsx';
+import About from './components/About.jsx';
+import Teams from './components/Teams.jsx';
+import CategoriesCours from './components/CategoriesCours.jsx';
 function App() {
 
   return (
@@ -46,6 +49,9 @@ function App() {
         <Route path="/DashboardSetting" element={<DashboardSetting />} />
         <Route path="/News" element={<News />} />
         <Route path="/Contact" element={<Contact />} />
+        <Route path="/About" element={<About />} />
+        <Route path="/Teams" element={<Teams />} />
+        <Route path="/CategoriesCours" element={<CategoriesCours />} />
 
 
         {/* <Route path="/about" element={<About />} />
