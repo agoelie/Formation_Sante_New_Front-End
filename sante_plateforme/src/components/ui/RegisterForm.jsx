@@ -273,12 +273,12 @@ function App() {
           <div className="mt-8 text-center">
             <p className="text-gray-600">
               Vous avez déjà un compte ?{' '}
-                <a
-                  href="/login"
-                  className="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200"
-                >
-                  S'inscrire
-                </a>
+                      <Link
+              to="/login"
+              className="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200"
+            >
+              S'inscrire
+            </Link>
             </p>
 
                               {/* <a

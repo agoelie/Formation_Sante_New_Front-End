@@ -247,16 +247,16 @@ function App() {
 
           {/* Liens de connexion */}
           <div className="mt-8 text-center">
-  <p className="text-gray-600">
-    Vous avez déjà un compte ?{" "}
-    <a
-      href="/register"
-      className="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200"
-    >
-      S'inscrire
-    </a>
-  </p>
-</div>
+            <p className="text-gray-600">
+              Vous avez déjà un compte ?{" "}
+              <Link
+                to="/register"
+                className="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200"
+              >
+                S'inscrire
+              </Link>
+            </p>
+          </div>
 
         </div>
       </div>
