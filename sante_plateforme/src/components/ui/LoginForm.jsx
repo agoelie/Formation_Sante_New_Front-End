@@ -1,4 +1,5 @@
 
+import { Link } from "react-router-dom";
 
 import React, { useState } from 'react';
 import { ArrowLeft, User, Mail, Briefcase, Lock, Eye, EyeOff, UserPlus } from 'lucide-react';
@@ -246,7 +247,7 @@ function App() {
           </form>
 
           {/* Liens de connexion */}
-          <div className="mt-8 text-center">
+         <div className="mt-8 text-center">
             <p className="text-gray-600">
               Vous avez déjà un compte ?{" "}
               <Link
