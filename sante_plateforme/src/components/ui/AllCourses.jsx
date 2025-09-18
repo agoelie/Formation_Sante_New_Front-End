@@ -314,26 +314,7 @@ export default function CoursesGrid() {
         ))}
       </div>
 
-      {/* Pagination
-      <div className="flex justify-between items-center mt-10">
-        <button
-          onClick={() => setPage((p) => Math.max(1, p - 1))}
-          disabled={page === 1}
-          className="flex items-center gap-2 border border-gray-300 px-5 py-2 rounded-lg text-gray-700 hover:bg-gray-100 disabled:opacity-50"
-        >
-          <ArrowLeft size={18} /> Précédent
-        </button>
-
-        <button
-          onClick={() =>
-            setPage((p) => (p * itemsPerPage < courses.length ? p + 1 : p))
-          }
-          disabled={page * itemsPerPage >= courses.length}
-          className="flex items-center gap-2 border border-gray-300 px-5 py-2 rounded-lg text-gray-700 hover:bg-gray-100 disabled:opacity-50"
-        >
-          Suivant <ArrowRight size={18} />
-        </button>
-      </div> */}
+     
 
       {/* Nouvelle pagination dynamique */}
 <div className="flex justify-center mt-10">

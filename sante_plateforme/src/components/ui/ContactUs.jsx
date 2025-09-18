@@ -72,38 +72,7 @@ const ContactPage = () => {
         </form>
       </section>
 
-      {/* FAQ */}
-      {/* <section className="text-center py-12 px-4">
-        <h2 className="text-2xl font-bold">Frequently Asked Questions</h2>
-        <div className="mt-8">
-          <div className="p-4 border rounded-lg shadow-md transition transform hover:scale-100 scale-90">
-            <h3 className="text-xl font-bold">What are your operating hours?</h3>
-            <p className="mt-2 text-gray-700">
-              We operate from 9 AM to 5 PM, Monday to Friday.
-            </p>
-          </div>
-          <div className="p-4 border rounded-lg shadow-md transition transform hover:scale-100 scale-90 mt-4">
-            <h3 className="text-xl font-bold">How can I book an appointment?</h3>
-            <p className="mt-2 text-gray-700">
-              You can book an appointment through our website or by calling our office.
-            </p>
-          </div>
-          <div className="p-4 border rounded-lg shadow-md transition transform hover:scale-100 scale-90 mt-4">
-            <h3 className="text-xl font-bold">Do you offer telemedicine services?</h3>
-            <p className="mt-2 text-gray-700">
-              Yes, we offer telemedicine consultations.
-            </p>
-          </div>
-        </div>
-      </section> */}
-
-      {/* Footer */}
-      {/* <footer className="bg-blue-700 text-white text-center py-8">
-        <p>
-          &copy; Copyright Your Company Name 2024. All rights reserved. Made By
-          Binary Boats⛵.
-        </p>
-      </footer> */}
+    
     </div>
   );
 };
