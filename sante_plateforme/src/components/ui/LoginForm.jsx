@@ -248,10 +248,17 @@ function App() {
           {/* Liens de connexion */}
           <div className="mt-8 text-center">
             <p className="text-gray-600">
-              Vous avez déjà un compte ?{''} 
-              <button className="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200">
+              Vous avez déjà un compte ?{''}
+
+                        <Link to="/Register" className="flex items-center gap-2">
+                  <img src="/Formasante-logo.png" alt="Logo" className="w-20 h-10" />
+                  <button className="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200">
+                          S'inscrire
+                        </button>
+                </Link> 
+              {/* <button className="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200">
                 S'inscrire
-              </button>
+              </button> */}
             </p>
           </div>
         </div>
