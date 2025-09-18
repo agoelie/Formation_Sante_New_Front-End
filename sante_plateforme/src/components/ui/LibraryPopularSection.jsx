@@ -526,7 +526,7 @@ export default function PopularCourses() {
             <span>{cat.icon}</span>
             <span className="whitespace-nowrap">{cat.name}</span>
           </button>
-        ))}
+        ))}  
       </div>
 
       {/* Titre */}
