@@ -10,8 +10,11 @@ import Footer from './ui/Footer';
 const Home = () => {
     return (
         <>
+        <div className='mt-5'>
         <Navbar />
         <HeroSection /> 
+        </div>
+        
         <FeaturesSection/>  
         <Courses/>
         <Testimonials/> 

@@ -105,11 +105,11 @@ export default function Footer() {
         <div>
           <h3 className="text-xl font-semibold mb-6">Liens rapides</h3>
           <ul className="space-y-3 text-gray-300 text-sm">
-            <li><a href="#">A propos</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">Catalogue</a></li>
-            <li><a href="#">Direction</a></li>
-            <li><a href="#">Pour les entreprises</a></li>
+            <li><a href="/About">A propos</a></li>
+            <li><a href="/Contact">Contact</a></li>
+            <li><a href="/CoursList">Catalogue</a></li>
+            <li><a href="/About">Direction</a></li>
+            <li><a href="/About">Pour les entreprises</a></li>
           </ul>
         </div>
 
@@ -117,10 +117,12 @@ export default function Footer() {
         <div>
           <h3 className="text-xl font-semibold mb-6">Communauté</h3>
           <ul className="space-y-3 text-gray-300 text-sm">
-            <li><a href="#">Ce que nous proposons</a></li>
-            <li><a href="#">Formations</a></li>
-            <li><a href="#">Partenaires</a></li>
-            <li><a href="#">Conditions</a></li>
+            <li><a href="/Home">Ce que nous proposons</a></li>
+            <li><a href="/CoursList">Formations</a></li>
+             <li><a href="/Library">Bibliothèque</a></li>
+
+            <li><a href="/About">Partenaires</a></li>
+            <li><a href="/Contact">Conditions</a></li>
           </ul>
         </div>
 

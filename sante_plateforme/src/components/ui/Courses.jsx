@@ -7,37 +7,37 @@ const courses = [
   {
     id: 1,
     title: "Hygiène et Prévention des Infections",
-    rating: 4.5,
+    // rating: 4.5,
     image: "/public/higiène2.jpg",
   },
   {
     id: 2,
     title: "Hygiène et Prévention des Infections",
-    rating: 4.5,
+    // rating: 4.5,
     image: "/public/medecine.jpg",
   },
   {
     id: 3,
     title: "Hygiène et Prévention des Infections",
-    rating: 4.5,
+    // rating: 4.5,
     image: "/public/Medecine2.jpg",
   },
   {
     id: 4,
     title: "Hygiène et Prévention des Infections",
-    rating: 4.5,
+    // rating: 4.5,
     image: "/public/pediatrie1.jpg",
   },
   {
     id: 5,
     title: "Hygiène et Prévention des Infections",
-    rating: 4.5,
+    // rating: 4.5,
     image: "/public/pediatrie2.jpg",
   },
   {
     id: 6,
     title: "Hygiène et Prévention des Infections",
-    rating: 4.5,
+    // rating: 4.5,
     image: "/public/pediatrie1.jpg",
   },
 ];
@@ -59,18 +59,18 @@ const Courses = () => {
                 alt={course.title}
                 className="w-full h-64 object-cover"
               />
-              <div className="absolute inset-0 bg-gray-900 opacity-25 hover:bg-transparent transition duration-300"></div>
+              <div className="absolute inset-0 bg-gray-900 opacity-25  transition duration-300"></div>
 
               {/* Badge Nouveau */}
-              <div className="absolute bottom-0 left-0 bg-red-700 px-4 py-2 text-white text-sm hover:bg-white hover:text-red-700 transition duration-500">
+              <div className="absolute bottom-0 left-0 bg-green-700 px-4 py-2 text-white text-sm hover:bg-blue hover:text-white-700 transition duration-500">
                 Nouveau
               </div>
 
               {/* Rating en haut à droite */}
-              <div className="text-sm absolute top-0 right-0 bg-indigo-600 px-4 text-white rounded-full h-16 w-16 flex flex-col items-center justify-center mt-3 mr-3 hover:bg-white hover:text-indigo-600 transition duration-500 ease-in-out">
+              {/* <div className="text-sm absolute top-0 right-0 bg-indigo-600 px-4 text-white rounded-full h-16 w-16 flex flex-col items-center justify-center mt-3 mr-3 hover:bg-white hover:text-indigo-600 transition duration-500 ease-in-out">
                 <span className="font-bold">{course.rating}</span>
                 <small>⭐</small>
-              </div>
+              </div> */}
             </div>
 
             {/* Contenu du cours */}

@@ -207,7 +207,7 @@ const Navbar = () => {
           </div>
 
           {/* Partie droite Desktop */}
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center">
             {/* Recherche */}
             <div className="flex items-center bg-white rounded-full px-3 py-1 w-72 shadow-md">
               <svg
@@ -247,8 +247,8 @@ const Navbar = () => {
                   d="M7 8h10M7 12h6m-6 4h10m1 5H6a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2v14a2 2 0 01-2 2z"
                 />
               </svg>
-              <span className="absolute top-1 right-1 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
-                2
+              <span className="absolute top-1 right-1  text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                {/* 2 */}
               </span>
             </button>
 
@@ -265,8 +265,8 @@ const Navbar = () => {
               >
                 <path d="M12 22c1.1 0 2-.9 2-2H10a2 2 0 002 2zm6-6V9c0-3.07-1.63-5.64-4.5-6.32V2h-3v.68C7.63 3.36 6 5.92 6 9v7l-2 2v1h16v-1l-2-2z" />
               </svg>
-              <span className="absolute top-1 right-1 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
-                5
+              <span className="absolute top-1 right-1  text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                {/* 5 */}
               </span>
             </button>
 
@@ -339,7 +339,7 @@ const Navbar = () => {
           </Link>
           <button
             onClick={handleLogout}
-            className="mt-3 w-full px-4 py-2 bg-yellow-300 text-indigo-700 font-semibold rounded-xl hover:bg-white transition whitespace-nowrap"
+            className="mt-3 w-full px-4 py-2 bg-green-300 text-indigo-700 font-semibold rounded-xl hover:bg-green transition whitespace-nowrap"
           >
             Sign in
           </button>

@@ -500,12 +500,20 @@ const courses = [
   { id: 6, title: "Cours Avancé", rating: 4.5, badge: "Mieux noté", category: "Mieux noté", image: "/medecine.jpg" },
   { id: 7, title: "Cas Cliniques Infectieux", rating: 4.5, badge: "Nouveau", category: "Infections", image: "/medecine.jpg" },
   { id: 8, title: "Hygiène et Santé Publique", rating: 4.5, badge: "Nouveau", category: "Hygiène", image: "/medecine.jpg" },
+  { id: 1, title: "Hygiène et Prévention des Infections", rating: 4.5, badge: "Nouveau", category: "Hygiène", image: "/medecine.jpg" },
+  { id: 2, title: "Prévention Avancée", rating: 4.5, badge: "Mieux noté", category: "Prévention", image: "/medecine.jpg" },
+  { id: 3, title: "Diagnostic Infectieux", rating: 4.5, badge: "Nouveau", category: "Infections", image: "/medecine.jpg" },
+  { id: 4, title: "Hygiène Hospitalière", rating: 4.5, badge: "Nouveau", category: "Hygiène", image: "/medecine.jpg" },
+  { id: 5, title: "Prévention des Risques", rating: 4.5, badge: "Nouveau", category: "Prévention", image: "/medecine.jpg" },
+  { id: 6, title: "Cours Avancé", rating: 4.5, badge: "Mieux noté", category: "Mieux noté", image: "/medecine.jpg" },
+  { id: 7, title: "Cas Cliniques Infectieux", rating: 4.5, badge: "Nouveau", category: "Infections", image: "/medecine.jpg" },
+  { id: 8, title: "Hygiène et Santé Publique", rating: 4.5, badge: "Nouveau", category: "Hygiène", image: "/medecine.jpg" },
 ];
 
 export default function CoursesGrid() {
   const [page, setPage] = useState(1);
   const [activeCategory, setActiveCategory] = useState("Tout");
-  const itemsPerPage = 8;
+  const itemsPerPage = 18;
 
   // Filtrage des cours
   const filteredCourses =
