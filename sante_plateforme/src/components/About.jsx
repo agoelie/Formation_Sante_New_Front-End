@@ -6,8 +6,11 @@ import TeamsSection from "./ui/TeamsSection"
 const About = () => {
     return (
         <>
+            <div className="mt-15">
             <Navbar/>
             <AboutUse/>
+            </div>
+            
             <TeamsSection/>
             <LibraryFooter/>
        

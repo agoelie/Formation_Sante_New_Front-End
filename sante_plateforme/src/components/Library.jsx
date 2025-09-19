@@ -6,8 +6,12 @@ import LibraryFooter from "./ui/LibraryFooter"
 const books =() => {
     return (
         <div>
-            <Navbar/>
+
+            <div className="mt-15">
+                <Navbar/>
             <LibraryPromoSection/>
+            </div>
+            
             <LibraryPopularSection/>
             <LibraryFooter/>
         </div>

@@ -6,9 +6,11 @@ import LibraryFooter from "./ui/LibraryFooter"
 const Contact = () => {
     return (
         <div>
-            
+            <div className="mt-16">
             <Navbar/>
             <ContactUs/>
+            </div>
+            
             <LibraryFooter/>
         </div>
     )

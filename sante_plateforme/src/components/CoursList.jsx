@@ -10,9 +10,11 @@ import CategoriesCoursSection from './ui/CategoriesCoursSection'
 const CourseList = () => {
     return (
         <div>
-
+            <div className='mt-15'>
             <Navbar/>
             <PromoSection/>
+            </div>
+            
             {/* <Courses/> */}
             <CategoriesCoursSection/>
             <AllCourses/>
