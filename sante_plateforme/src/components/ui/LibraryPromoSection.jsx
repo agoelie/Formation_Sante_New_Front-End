@@ -14,7 +14,7 @@ export default function PromoSection() {
         {/* Image (dans public/) */}
         <div className="flex-shrink-0 ">
           <img
-            src="/medecine.jpg"
+            src="/fille-livre.jpg"
             alt="Formation Santé"
             className="w-50 h-50 rounded-md shadow-lg"
           />

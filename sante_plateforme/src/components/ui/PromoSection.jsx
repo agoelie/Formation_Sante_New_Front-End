@@ -33,9 +33,9 @@ export default function PromoSection() {
         {/* Texte */}
         <div className="flex-1 leading-relaxed text-left flex justify-start items-start  ">
           <p >
-                 Découvrez notre sélection des ouvrages les plus prisés en santé et médecine, soigneusement choisis pour leur qualité et leur impact.
-                Ces livres vous offrent des connaissances pratiques et accessibles pour améliorer vos compétences au quotidien.
                 
+                Découvrez notre sélection de cours en santé et médecine, conçus par des experts et choisis pour leur pertinence et leur qualité.
+                Ces formations vous offrent des connaissances pratiques et accessibles pour renforcer vos compétences au quotidien.
           </p>
         </div>
 
