@@ -129,7 +129,7 @@ export default function Footer() {
         <div>
           <h3 className="text-xl font-semibold mb-6">Communauté</h3>
           <ul className="space-y-3 text-white-300 text-sm">
-            <li><a href="/Home">Ce que nous proposons</a></li>
+            <li><a href="/">Ce que nous proposons</a></li>
             <li><a href="/CoursList">Formations</a></li>
              <li><a href="/Library">Bibliothèque</a></li>
 
