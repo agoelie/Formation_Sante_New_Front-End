@@ -423,8 +423,8 @@ export default function HotelDashboard() {
               {
                 icon: "fas fa-calendar-check",
                 bg: "bg-green-100 text-green-600",
-                title: "Occupied",
-                value: 84,
+                title: "Revenue",
+                value:  84000000,
               },
               {
                 icon: "fas fa-calendar-day",
