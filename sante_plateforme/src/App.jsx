@@ -15,6 +15,8 @@ import Contact from './components/Contact.jsx';
 import About from './components/About.jsx';
 import Teams from './components/Teams.jsx';
 import CategoriesCours from './components/CategoriesCours.jsx';
+import DashboardStatistic from './components/DashboardStatistic.jsx';
+
 function App() {
 
   return (
@@ -52,6 +54,7 @@ function App() {
         <Route path="/About" element={<About />} />
         <Route path="/Teams" element={<Teams />} />
         <Route path="/CategoriesCours" element={<CategoriesCours />} />
+        <Route path="/DashboardStatistic" element={<DashboardStatistic />} />
 
 
         {/* <Route path="/about" element={<About />} />

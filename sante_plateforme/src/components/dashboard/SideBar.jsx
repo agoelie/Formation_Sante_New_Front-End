@@ -49,6 +49,63 @@
 // }
 
 
+// import { BookOpen, Layers, Plug, Users, BarChart2, Settings, LogOut } from "lucide-react";
+// import { NavLink } from "react-router-dom";
+
+// export default function Sidebar() {
+//   const menuItems = [
+//     { name: "Bibliothèque", icon: <BookOpen size={20} />, path: "/DashboardLibrary" },
+//     { name: "Gestion des cours", icon: <Layers size={20} />, path: "/DashboardCours" },
+//     { name: "API Externes", icon: <Plug size={20} />, path: "/DashboardApi" },
+//     { name: "Utilisateurs", icon: <Users size={20} />, path: "/DashboardUsers" },
+//     { name: "Statistiques", icon: <BarChart2 size={20} />, path: "/DashboardStatistic" },
+//     { name: "Paramètres", icon: <Settings size={20} />, path: "/DashboardSetting" },
+//   ];
+
+//   return (
+//     <aside className="w-64 bg-gradient-to-b from-[#0A0433] to-[#12014A] h-screen text-white flex flex-col shadow-2xl ">
+      
+//       {/* Logo / Titre */}
+//       <div className="text-center py-8 border-b border-white/10">
+//         <h1 className="text-2xl font-extrabold tracking-wide">
+//           <span className="text-cyan-400">Santé</span> Admin
+//         </h1>
+//       </div>
+
+//       {/* Navigation */}
+//       <nav className="flex-1 px-4 py-6 flex flex-col gap-10 mt-15">
+//         {menuItems.map((item, index) => (
+//           <NavLink
+//             key={index}
+//             to={item.path}
+//             className={({ isActive }) =>
+//               `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300
+//                ${
+//                  isActive
+//                    ? "bg-gradient-to-r from-cyan-400 to-indigo-500 text-white shadow-lg"
+//                    : "text-gray-300 hover:bg-white/10 hover:text-white"
+//                }`
+//             }
+//           >
+//             <span>{item.icon}</span>
+//             <span>{item.name}</span>
+//           </NavLink>
+//         ))}
+//       </nav>
+
+//       {/* Déconnexion */}
+//       <div className="px-4 pb-6">
+//         <button className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-sm font-medium 
+//           text-gray-300 hover:bg-gradient-to-r hover:from-red-500 hover:to-pink-600 hover:text-white 
+//           transition-all duration-300">
+//           <LogOut size={20} />
+//           Déconnexion
+//         </button>
+//       </div>
+//     </aside>
+//   );
+// }
+
 import { BookOpen, Layers, Plug, Users, BarChart2, Settings, LogOut } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
@@ -58,12 +115,12 @@ export default function Sidebar() {
     { name: "Gestion des cours", icon: <Layers size={20} />, path: "/DashboardCours" },
     { name: "API Externes", icon: <Plug size={20} />, path: "/DashboardApi" },
     { name: "Utilisateurs", icon: <Users size={20} />, path: "/DashboardUsers" },
-    { name: "Statistiques", icon: <BarChart2 size={20} />, path: "/stats" },
+    { name: "Statistiques", icon: <BarChart2 size={20} />, path: "/DashboardStatistic" },
     { name: "Paramètres", icon: <Settings size={20} />, path: "/DashboardSetting" },
   ];
 
   return (
-    <aside className="w-64 bg-gradient-to-b from-[#0A0433] to-[#12014A] h-screen text-white flex flex-col shadow-2xl ">
+    <aside className="w-64 bg-gradient-to-b from-[#0A0433] to-[#12014A] h-screen text-white flex flex-col shadow-2xl">
       
       {/* Logo / Titre */}
       <div className="text-center py-8 border-b border-white/10">
@@ -73,7 +130,7 @@ export default function Sidebar() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-4 py-6 flex flex-col gap-10 mt-15">
+      <nav className="flex-1 px-4 py-6 flex flex-col gap-6">
         {menuItems.map((item, index) => (
           <NavLink
             key={index}
@@ -92,6 +149,19 @@ export default function Sidebar() {
           </NavLink>
         ))}
       </nav>
+
+      {/* Profil Admin */}
+      <div className="px-4 py-4 border-t border-white/10 flex items-center">
+        <img
+          className="w-10 h-10 rounded-full border-2 border-cyan-400"
+          src="https://randomuser.me/api/portraits/women/11.jpg"
+          alt="User"
+        />
+        <div className="ml-3">
+          <p className="text-sm font-medium">Sarah Johnson</p>
+          <p className="text-xs text-cyan-300">Admin</p>
+        </div>
+      </div>
 
       {/* Déconnexion */}
       <div className="px-4 pb-6">
