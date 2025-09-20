@@ -89,7 +89,7 @@ export default function Footer() {
         <div>
           <h2 className="text-2xl font-bold mb-6">FormASanté</h2>
           <p className="text-white-300 text-sm leading-relaxed">
-            Atteignez vos objectifs de carrière avec Santé Plus.
+            Atteignez vos objectifs de carrière avec FormASanté.
           </p>
           {/* Icônes sociales */}
           {/* <div className="flex gap-3 mt-6">
