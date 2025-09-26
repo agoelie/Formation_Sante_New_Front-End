@@ -26,3 +26,17 @@ export const registerSchema = z.object({
     .regex(/[0-9]/, "Le mot de passe doit contenir au moins un chiffre")
     .regex(/[^A-Za-z0-9]/, "Le mot de passe doit contenir un caractère spécial"),
 });
+
+
+
+// validation/loginSchema.js
+
+export const loginSchema = z.object({
+  email: z
+    .string()
+    .email("Adresse email invalide"),
+    
+  password: z
+    .string()
+    .min(8, "Le mot de passe doit contenir au moins 8 caractères")
+});
