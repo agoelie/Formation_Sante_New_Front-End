@@ -662,7 +662,639 @@
 // export default App;
 
 
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+// import React, { useState } from 'react';
+// import { ArrowLeft, User, Mail, Briefcase, Lock, Eye, EyeOff, UserPlus } from 'lucide-react';
+// import { loginSchema } from '../../validation/AuthValidation';
+// import { z } from 'zod';
+
+// function App() {
+//   const [formData, setFormData] = useState({
+//     email: '',
+//     password: ''
+//   });
+
+//   const [errors, setErrors] = useState({});
+//   const [showPassword, setShowPassword] = useState(false);
+//   const [focusedField, setFocusedField] = useState(null);
+
+//   // Utilisateurs temporaires (à remplir depuis le registre ou manuellement)
+//   const [users, setUsers] = useState([
+//     // Exemple : { firstName, lastName, email, profession, password }
+//   ]);
+
+//   const [message, setMessage] = useState("");
+
+//   const evaluatePasswordStrength = (password) => {
+//     let score = 0;
+//     if (password.length >= 8) score += 1;
+//     if (password.length >= 12) score += 1;
+//     if (/[a-z]/.test(password)) score += 1;
+//     if (/[A-Z]/.test(password)) score += 1;
+//     if (/[0-9]/.test(password)) score += 1;
+//     if (/[^A-Za-z0-9]/.test(password)) score += 1;
+
+//     if (score <= 2) return { score: 1, label: 'Moyen', color: 'bg-yellow-500' };
+//     if (score <= 4) return { score: 2, label: 'Fort', color: 'bg-orange-500' };
+//     return { score: 3, label: 'Excellent', color: 'bg-green-500' };
+//   };
+
+//   const handleInputChange = (e) => {
+//     setFormData({
+//       ...formData,
+//       [e.target.name]: e.target.value
+//     });
+//     setErrors({ ...errors, [e.target.name]: "" });
+//   };
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     try {
+//       loginSchema.parse(formData);
+//       setErrors({});
+
+//       // Vérifier si l'utilisateur existe
+//       const user = users.find(u => u.email === formData.email && u.password === formData.password);
+//       if (user) {
+//         setMessage(`Connexion réussie ! Bienvenue ${user.firstName}`);
+//       } else {
+//         setMessage("Email ou mot de passe incorrect");
+//       }
+
+//     } catch (err) {
+//       if (err instanceof z.ZodError) {
+//         const fieldErrors = {};
+//         err.errors.forEach((error) => {
+//           fieldErrors[error.path[0]] = error.message;
+//         });
+//         setErrors(fieldErrors);
+//       }
+//     }
+//   };
+
+//   const passwordStrength = evaluatePasswordStrength(formData.password);
+
+//   return (
+//     <div className="min-h-screen bg-gray-50 flex">
+//       {/* Section gauche */}
+//       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+//         <img
+//           src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+//           alt="Professional workspace"
+//           className="w-full h-full object-cover"
+//         />
+//         <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 to-purple-700/90"></div>
+//         <div className="absolute inset-0 flex items-center justify-center p-12">
+//           <div className="text-white text-center">
+//             <div className="flex items-center justify-center mb-8">
+//               <div className="bg-white/20 backdrop-blur-sm p-4 rounded-2xl">
+//                 <UserPlus className="w-12 h-12 text-white" />
+//               </div>
+//             </div>
+//             <h1 className="text-4xl font-bold mb-6">Rejoignez-nous</h1>
+//             <p className="text-xl text-white/90 leading-relaxed">
+//                 Accédez à votre espace et vivez une expérience professionnelle unique
+//             </p>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Section droite */}
+//       <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+//         <div className="w-full max-w-md">
+//           <div className="flex items-center justify-between mb-8">
+//             <div className="flex items-center gap-2">
+//               <div className="bg-blue-600 p-2 rounded-lg">
+//                 <UserPlus className="w-6 h-6 text-white" />
+//               </div>
+//               <span className="text-xl font-bold text-gray-800">FormASanté</span>
+//             </div>
+//           </div>
+
+//           <div className="mb-8">
+//             <h2 className="text-3xl font-bold text-gray-900 mb-2">Se connecter au compte</h2>
+//           </div>
+
+//           <form onSubmit={handleSubmit} className="space-y-6">
+//             {/* Email */}
+//             <div className="relative">
+//               <label className="block text-sm font-semibold text-gray-700 mb-2">
+//                 Adresse email
+//               </label>
+//               <div className="relative">
+//                 <Mail className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-colors duration-200 ${
+//                   focusedField === 'email' ? 'text-blue-600' : 'text-gray-400'
+//                 }`} />
+//                 <input
+//                   type="email"
+//                   name="email"
+//                   value={formData.email}
+//                   onChange={handleInputChange}
+//                   onFocus={() => setFocusedField('email')}
+//                   onBlur={() => setFocusedField(null)}
+//                   placeholder="votre.email@exemple.com"
+//                   className={`w-full pl-10 pr-4 py-3 border-2 rounded-xl transition-all duration-200 focus:outline-none ${
+//                     focusedField === 'email'
+//                       ? 'border-blue-600 shadow-lg shadow-blue-600/25'
+//                       : 'border-gray-200 hover:border-gray-300'
+//                   }`}
+//                 />
+//               </div>
+//               {errors.email && <p className="text-red-600 text-xs mt-1">{errors.email}</p>}
+//             </div>
+
+//             {/* Mot de passe */}
+//             <div className="relative">
+//               <label className="block text-sm font-semibold text-gray-700 mb-2">
+//                 Mot de passe
+//               </label>
+//               <div className="relative">
+//                 <Lock className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-colors duration-200 ${
+//                   focusedField === 'password' ? 'text-blue-600' : 'text-gray-400'
+//                 }`} />
+//                 <input
+//                   type={showPassword ? 'text' : 'password'}
+//                   name="password"
+//                   value={formData.password}
+//                   onChange={handleInputChange}
+//                   onFocus={() => setFocusedField('password')}
+//                   onBlur={() => setFocusedField(null)}
+//                   placeholder="Votre mot de passe"
+//                   className={`w-full pl-10 pr-12 py-3 border-2 rounded-xl transition-all duration-200 focus:outline-none ${
+//                     focusedField === 'password'
+//                       ? 'border-blue-600 shadow-lg shadow-blue-600/25'
+//                       : 'border-gray-200 hover:border-gray-300'
+//                   }`}
+//                 />
+//                 <button
+//                   type="button"
+//                   onClick={() => setShowPassword(!showPassword)}
+//                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+//                 >
+//                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+//                 </button>
+//               </div>
+//               {errors.password && <p className="text-red-600 text-xs mt-1">{errors.password}</p>}
+//             </div>
+
+//             <button
+//               type="submit"
+//               className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-xl font-semibold text-lg shadow-lg shadow-blue-600/30 hover:shadow-xl hover:shadow-blue-600/40 hover:from-blue-700 hover:to-blue-800 transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-600/25"
+//             >
+//               Se connecter
+//             </button>
+//           </form>
+
+//           {message && <p className="text-green-600 mt-2">{message}</p>}
+
+//           <div className="mt-8 text-center">
+//             <p className="text-gray-600">
+//               Vous n'avez pas de compte ?{" "}
+//               <Link
+//                 to="/register"
+//                 className="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200"
+//               >
+//                 S'inscrire
+//               </Link>
+//             </p>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+
+// import { Link } from "react-router-dom";
+// import React, { useState } from 'react';
+// import { ArrowLeft, User, Mail, Briefcase, Lock, Eye, EyeOff, UserPlus } from 'lucide-react';
+// import { loginSchema } from '../../validation/AuthValidation';
+// import { z } from 'zod';
+
+// function App() {
+//   const [formData, setFormData] = useState({
+//     email: '',
+//     password: ''
+//   });
+
+//   const [errors, setErrors] = useState({});
+//   const [showPassword, setShowPassword] = useState(false);
+//   const [focusedField, setFocusedField] = useState(null);
+
+//   // ⚡ Correction : on charge les utilisateurs depuis localStorage
+//   const [users] = useState(() => {
+//     const stored = localStorage.getItem("users");
+//     return stored ? JSON.parse(stored) : [];
+//   });
+
+//   const [message, setMessage] = useState("");
+
+//   const evaluatePasswordStrength = (password) => {
+//     let score = 0;
+//     if (password.length >= 8) score += 1;
+//     if (password.length >= 12) score += 1;
+//     if (/[a-z]/.test(password)) score += 1;
+//     if (/[A-Z]/.test(password)) score += 1;
+//     if (/[0-9]/.test(password)) score += 1;
+//     if (/[^A-Za-z0-9]/.test(password)) score += 1;
+
+//     if (score <= 2) return { score: 1, label: 'Moyen', color: 'bg-yellow-500' };
+//     if (score <= 4) return { score: 2, label: 'Fort', color: 'bg-orange-500' };
+//     return { score: 3, label: 'Excellent', color: 'bg-green-500' };
+//   };
+
+//   const handleInputChange = (e) => {
+//     setFormData({
+//       ...formData,
+//       [e.target.name]: e.target.value
+//     });
+//     setErrors({ ...errors, [e.target.name]: "" });
+//   };
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     try {
+//       loginSchema.parse(formData);
+//       setErrors({});
+
+//       // ⚡ Vérifier si l'utilisateur existe dans localStorage
+//       const user = users.find(
+//         u => u.email === formData.email && u.password === formData.password
+//       );
+
+//       if (user) {
+//         setMessage(`Connexion réussie ! Bienvenue ${user.firstName}`);
+//       } else {
+//         setMessage("Email ou mot de passe incorrect");
+//       }
+
+//     } catch (err) {
+//       if (err instanceof z.ZodError) {
+//         const fieldErrors = {};
+//         err.errors.forEach((error) => {
+//           fieldErrors[error.path[0]] = error.message;
+//         });
+//         setErrors(fieldErrors);
+//       }
+//     }
+//   };
+
+//   const passwordStrength = evaluatePasswordStrength(formData.password);
+
+//   return (
+//     <div className="min-h-screen bg-gray-50 flex">
+//       {/* Section gauche */}
+//       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+//         <img
+//           src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+//           alt="Professional workspace"
+//           className="w-full h-full object-cover"
+//         />
+//         <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 to-purple-700/90"></div>
+//         <div className="absolute inset-0 flex items-center justify-center p-12">
+//           <div className="text-white text-center">
+//             <div className="flex items-center justify-center mb-8">
+//               <div className="bg-white/20 backdrop-blur-sm p-4 rounded-2xl">
+//                 <UserPlus className="w-12 h-12 text-white" />
+//               </div>
+//             </div>
+//             <h1 className="text-4xl font-bold mb-6">Rejoignez-nous</h1>
+//             <p className="text-xl text-white/90 leading-relaxed">
+//                 Accédez à votre espace et vivez une expérience professionnelle unique
+//             </p>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Section droite */}
+//       <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+//         <div className="w-full max-w-md">
+//           <div className="flex items-center justify-between mb-8">
+//             <div className="flex items-center gap-2">
+//               <div className="bg-blue-600 p-2 rounded-lg">
+//                 <UserPlus className="w-6 h-6 text-white" />
+//               </div>
+//               <span className="text-xl font-bold text-gray-800">FormASanté</span>
+//             </div>
+//           </div>
+
+//           <div className="mb-8">
+//             <h2 className="text-3xl font-bold text-gray-900 mb-2">Se connecter au compte</h2>
+//           </div>
+
+//           <form onSubmit={handleSubmit} className="space-y-6">
+//             {/* Email */}
+//             <div className="relative">
+//               <label className="block text-sm font-semibold text-gray-700 mb-2">
+//                 Adresse email
+//               </label>
+//               <div className="relative">
+//                 <Mail className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-colors duration-200 ${
+//                   focusedField === 'email' ? 'text-blue-600' : 'text-gray-400'
+//                 }`} />
+//                 <input
+//                   type="email"
+//                   name="email"
+//                   value={formData.email}
+//                   onChange={handleInputChange}
+//                   onFocus={() => setFocusedField('email')}
+//                   onBlur={() => setFocusedField(null)}
+//                   placeholder="votre.email@exemple.com"
+//                   className={`w-full pl-10 pr-4 py-3 border-2 rounded-xl transition-all duration-200 focus:outline-none ${
+//                     focusedField === 'email'
+//                       ? 'border-blue-600 shadow-lg shadow-blue-600/25'
+//                       : 'border-gray-200 hover:border-gray-300'
+//                   }`}
+//                 />
+//               </div>
+//               {errors.email && <p className="text-red-600 text-xs mt-1">{errors.email}</p>}
+//             </div>
+
+//             {/* Mot de passe */}
+//             <div className="relative">
+//               <label className="block text-sm font-semibold text-gray-700 mb-2">
+//                 Mot de passe
+//               </label>
+//               <div className="relative">
+//                 <Lock className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-colors duration-200 ${
+//                   focusedField === 'password' ? 'text-blue-600' : 'text-gray-400'
+//                 }`} />
+//                 <input
+//                   type={showPassword ? 'text' : 'password'}
+//                   name="password"
+//                   value={formData.password}
+//                   onChange={handleInputChange}
+//                   onFocus={() => setFocusedField('password')}
+//                   onBlur={() => setFocusedField(null)}
+//                   placeholder="Votre mot de passe"
+//                   className={`w-full pl-10 pr-12 py-3 border-2 rounded-xl transition-all duration-200 focus:outline-none ${
+//                     focusedField === 'password'
+//                       ? 'border-blue-600 shadow-lg shadow-blue-600/25'
+//                       : 'border-gray-200 hover:border-gray-300'
+//                   }`}
+//                 />
+//                 <button
+//                   type="button"
+//                   onClick={() => setShowPassword(!showPassword)}
+//                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+//                 >
+//                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+//                 </button>
+//               </div>
+//               {errors.password && <p className="text-red-600 text-xs mt-1">{errors.password}</p>}
+//             </div>
+
+//             <button
+//               type="submit"
+//               className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-xl font-semibold text-lg shadow-lg shadow-blue-600/30 hover:shadow-xl hover:shadow-blue-600/40 hover:from-blue-700 hover:to-blue-800 transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-600/25"
+//             >
+//               Se connecter
+//             </button>
+//           </form>
+
+//           {message && <p className="text-green-600 mt-2">{message}</p>}
+
+//           <div className="mt-8 text-center">
+//             <p className="text-gray-600">
+//               Vous n'avez pas de compte ?{" "}
+//               <Link
+//                 to="/register"
+//                 className="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200"
+//               >
+//                 S'inscrire
+//               </Link>
+//             </p>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+// import { Link, useNavigate } from "react-router-dom";
+// import React, { useState } from 'react';
+// import { ArrowLeft, User, Mail, Briefcase, Lock, Eye, EyeOff, UserPlus } from 'lucide-react';
+// import { loginSchema } from '../../validation/AuthValidation';
+// import { z } from 'zod';
+
+// function App() {
+//   const [formData, setFormData] = useState({
+//     email: '',
+//     password: ''
+//   });
+
+//   const [errors, setErrors] = useState({});
+//   const [showPassword, setShowPassword] = useState(false);
+//   const [focusedField, setFocusedField] = useState(null);
+
+//   const navigate = useNavigate(); // <-- ajout pour redirection
+
+//   // Utilisateurs temporaires
+//   const [users, setUsers] = useState([
+//     // Exemple : { firstName, lastName, email, profession, password }
+//   ]);
+
+//   const [message, setMessage] = useState("");
+
+//   const evaluatePasswordStrength = (password) => {
+//     let score = 0;
+//     if (password.length >= 8) score += 1;
+//     if (password.length >= 12) score += 1;
+//     if (/[a-z]/.test(password)) score += 1;
+//     if (/[A-Z]/.test(password)) score += 1;
+//     if (/[0-9]/.test(password)) score += 1;
+//     if (/[^A-Za-z0-9]/.test(password)) score += 1;
+
+//     if (score <= 2) return { score: 1, label: 'Moyen', color: 'bg-yellow-500' };
+//     if (score <= 4) return { score: 2, label: 'Fort', color: 'bg-orange-500' };
+//     return { score: 3, label: 'Excellent', color: 'bg-green-500' };
+//   };
+
+//   const handleInputChange = (e) => {
+//     setFormData({
+//       ...formData,
+//       [e.target.name]: e.target.value
+//     });
+//     setErrors({ ...errors, [e.target.name]: "" });
+//   };
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     try {
+//       loginSchema.parse(formData);
+//       setErrors({});
+
+//       const user = users.find(u => u.email === formData.email && u.password === formData.password);
+//       if (user) {
+//         setMessage(`Connexion réussie ! Bienvenue ${user.firstName}`);
+        
+//         // Redirection vers la page home après connexion
+//         navigate("/");
+//       } else {
+//         setMessage("Email ou mot de passe incorrect");
+//       }
+
+//     } catch (err) {
+//       if (err instanceof z.ZodError) {
+//         const fieldErrors = {};
+//         err.errors.forEach((error) => {
+//           fieldErrors[error.path[0]] = error.message;
+//         });
+//         setErrors(fieldErrors);
+//       }
+//     }
+//   };
+
+//   const passwordStrength = evaluatePasswordStrength(formData.password);
+
+//   return (
+//     <div className="min-h-screen bg-gray-50 flex">
+//       {/* Section gauche */}
+//       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+//         <img
+//           src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+//           alt="Professional workspace"
+//           className="w-full h-full object-cover"
+//         />
+//         <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 to-purple-700/90"></div>
+//         <div className="absolute inset-0 flex items-center justify-center p-12">
+//           <div className="text-white text-center">
+//             <div className="flex items-center justify-center mb-8">
+//               <div className="bg-white/20 backdrop-blur-sm p-4 rounded-2xl">
+//                 <UserPlus className="w-12 h-12 text-white" />
+//               </div>
+//             </div>
+//             <h1 className="text-4xl font-bold mb-6">Rejoignez-nous</h1>
+//             <p className="text-xl text-white/90 leading-relaxed">
+//                 Accédez à votre espace et vivez une expérience professionnelle unique
+//             </p>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Section droite */}
+//       <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+//         <div className="w-full max-w-md">
+//           <div className="flex items-center justify-between mb-8">
+//             <div className="flex items-center gap-2">
+//               <div className="bg-blue-600 p-2 rounded-lg">
+//                 <UserPlus className="w-6 h-6 text-white" />
+//               </div>
+//               <span className="text-xl font-bold text-gray-800">FormASanté</span>
+//             </div>
+//           </div>
+
+//           <div className="mb-8">
+//             <h2 className="text-3xl font-bold text-gray-900 mb-2">Se connecter au compte</h2>
+//           </div>
+
+//           <form onSubmit={handleSubmit} className="space-y-6">
+//             {/* Email */}
+//             <div className="relative">
+//               <label className="block text-sm font-semibold text-gray-700 mb-2">
+//                 Adresse email
+//               </label>
+//               <div className="relative">
+//                 <Mail className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-colors duration-200 ${
+//                   focusedField === 'email' ? 'text-blue-600' : 'text-gray-400'
+//                 }`} />
+//                 <input
+//                   type="email"
+//                   name="email"
+//                   value={formData.email}
+//                   onChange={handleInputChange}
+//                   onFocus={() => setFocusedField('email')}
+//                   onBlur={() => setFocusedField(null)}
+//                   placeholder="votre.email@exemple.com"
+//                   className={`w-full pl-10 pr-4 py-3 border-2 rounded-xl transition-all duration-200 focus:outline-none ${
+//                     focusedField === 'email'
+//                       ? 'border-blue-600 shadow-lg shadow-blue-600/25'
+//                       : 'border-gray-200 hover:border-gray-300'
+//                   }`}
+//                 />
+//               </div>
+//               {errors.email && <p className="text-red-600 text-xs mt-1">{errors.email}</p>}
+//             </div>
+
+//             {/* Mot de passe */}
+//             <div className="relative">
+//               <label className="block text-sm font-semibold text-gray-700 mb-2">
+//                 Mot de passe
+//               </label>
+//               <div className="relative">
+//                 <Lock className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-colors duration-200 ${
+//                   focusedField === 'password' ? 'text-blue-600' : 'text-gray-400'
+//                 }`} />
+//                 <input
+//                   type={showPassword ? 'text' : 'password'}
+//                   name="password"
+//                   value={formData.password}
+//                   onChange={handleInputChange}
+//                   onFocus={() => setFocusedField('password')}
+//                   onBlur={() => setFocusedField(null)}
+//                   placeholder="Votre mot de passe"
+//                   className={`w-full pl-10 pr-12 py-3 border-2 rounded-xl transition-all duration-200 focus:outline-none ${
+//                     focusedField === 'password'
+//                       ? 'border-blue-600 shadow-lg shadow-blue-600/25'
+//                       : 'border-gray-200 hover:border-gray-300'
+//                   }`}
+//                 />
+//                 <button
+//                   type="button"
+//                   onClick={() => setShowPassword(!showPassword)}
+//                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+//                 >
+//                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+//                 </button>
+//               </div>
+//               {errors.password && <p className="text-red-600 text-xs mt-1">{errors.password}</p>}
+//             </div>
+
+//             {/* <button
+//               type="submit"
+//               className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-xl font-semibold text-lg shadow-lg shadow-blue-600/30 hover:shadow-xl hover:shadow-blue-600/40 hover:from-blue-700 hover:to-blue-800 transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-600/25"
+//             >
+//               Se connecter
+//             </button> */}
+
+//                       <Link
+//             to="/login"
+//             className="w-full inline-block text-center bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-xl font-semibold text-lg shadow-lg shadow-blue-600/30 hover:shadow-xl hover:shadow-blue-600/40 hover:from-blue-700 hover:to-blue-800 transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-600/25"
+//           >
+//             Se connecter
+//           </Link>
+
+//           </form>
+
+//           {message && <p className="text-green-600 mt-2">{message}</p>}
+
+//           <div className="mt-8 text-center">
+//             <p className="text-gray-600">
+//               Vous n'avez pas de compte ?{" "}
+//               <Link
+//                 to="/register"
+//                 className="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200"
+//               >
+//                 S'inscrire
+//               </Link>
+//             </p>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
 import { ArrowLeft, User, Mail, Briefcase, Lock, Eye, EyeOff, UserPlus } from 'lucide-react';
 import { loginSchema } from '../../validation/AuthValidation';
@@ -678,7 +1310,9 @@ function App() {
   const [showPassword, setShowPassword] = useState(false);
   const [focusedField, setFocusedField] = useState(null);
 
-  // Utilisateurs temporaires (à remplir depuis le registre ou manuellement)
+  const navigate = useNavigate(); // pour redirection
+
+  // Utilisateurs temporaires
   const [users, setUsers] = useState([
     // Exemple : { firstName, lastName, email, profession, password }
   ]);
@@ -713,10 +1347,10 @@ function App() {
       loginSchema.parse(formData);
       setErrors({});
 
-      // Vérifier si l'utilisateur existe
       const user = users.find(u => u.email === formData.email && u.password === formData.password);
       if (user) {
         setMessage(`Connexion réussie ! Bienvenue ${user.firstName}`);
+        navigate("/"); // redirection après connexion
       } else {
         setMessage("Email ou mot de passe incorrect");
       }
@@ -724,7 +1358,7 @@ function App() {
     } catch (err) {
       if (err instanceof z.ZodError) {
         const fieldErrors = {};
-        err.errors.forEach((error) => {
+        err.errors.forEach(error => {
           fieldErrors[error.path[0]] = error.message;
         });
         setErrors(fieldErrors);
@@ -753,7 +1387,7 @@ function App() {
             </div>
             <h1 className="text-4xl font-bold mb-6">Rejoignez-nous</h1>
             <p className="text-xl text-white/90 leading-relaxed">
-                Accédez à votre espace et vivez une expérience professionnelle unique
+              Accédez à votre espace et vivez une expérience professionnelle unique
             </p>
           </div>
         </div>
@@ -837,12 +1471,20 @@ function App() {
               {errors.password && <p className="text-red-600 text-xs mt-1">{errors.password}</p>}
             </div>
 
+            {/* Bouton submit */}
             <button
               type="submit"
               className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-xl font-semibold text-lg shadow-lg shadow-blue-600/30 hover:shadow-xl hover:shadow-blue-600/40 hover:from-blue-700 hover:to-blue-800 transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-600/25"
             >
               Se connecter
             </button>
+
+            {/* <Link
+              to="/"
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-xl font-semibold text-lg shadow-lg shadow-blue-600/30 hover:shadow-xl hover:shadow-blue-600/40 hover:from-blue-700 hover:to-blue-800 transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-600/25 ml-30"
+            >
+              Se connecter
+            </Link> */}
           </form>
 
           {message && <p className="text-green-600 mt-2">{message}</p>}
