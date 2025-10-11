@@ -1771,7 +1771,7 @@ function Login() {
       if (user) {
         setMessage(`✅ Connexion réussie ! Bienvenue ${user.firstName}`);
         // Redirection vers /home après succès
-        setTimeout(() => navigate("/home"), 1000);
+        setTimeout(() => navigate("/"), 1000);
       } else {
         setMessage("❌ Email ou mot de passe incorrect.");
       }

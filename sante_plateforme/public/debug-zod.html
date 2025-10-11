@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Zod - Test Validation</title>
+    <script src="https://cdn.jsdelivr.net/npm/zod@3.22.4/lib/index.umd.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 10px 10px 10px 0;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+        button.success {
+            background: #10b981;
+        }
+        button.success:hover {
+            background: #059669;
+        }
+        .result {
+            background: #f9fafb;
+            border-left: 4px solid #2563eb;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .result.error {
+            background: #fee2e2;
+            border-left-color: #ef4444;
+            color: #991b1b;
+        }
+        .result.success {
+            background: #d1fae5;
+            border-left-color: #10b981;
+            color: #065f46;
+        }
+        .test-section {
+            background: #f3f4f6;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .test-section h3 {
+            color: #374151;
+            margin-top: 0;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        .badge.pass {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .badge.fail {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .info-box {
+            background: #dbeafe;
+            border: 2px solid #2563eb;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .info-box strong {
+            color: #1e40af;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Débogage Validation Zod</h1>
+        <p class="subtitle">Testez si la validation fonctionne correctement</p>
+
+        <div class="info-box">
+            <strong>📌 Objectif :</strong> Vérifier que Zod détecte bien les champs vides et affiche les bonnes erreurs.
+        </div>
+
+        <div class="test-section">
+            <h3>🧪 Tests Automatiques</h3>
+            <button onclick="runAllTests()">▶️ Lancer tous les tests</button>
+            <button onclick="testEmptyForm()" class="success">Test 1: Formulaire vide</button>
+            <button onclick="testShortFirstName()" class="success">Test 2: Prénom court</button>
+            <button onclick="testInvalidEmail()" class="success">Test 3: Email invalide</button>
+            <button onclick="testValidForm()" class="success">Test 4: Formulaire valide</button>
+        </div>
+
+        <div id="results"></div>
+
+        <div class="info-box" style="margin-top: 30px;">
+            <strong>💡 Que faire si les tests échouent ?</strong>
+            <ul>
+                <li>Vérifier que Zod est bien installé dans le projet</li>
+                <li>Vérifier le fichier AuthValidation.jsx</li>
+                <li>Ouvrir la console (F12) du formulaire Register pour voir les erreurs</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Recréer le schéma Zod exactement comme dans AuthValidation.jsx
+        const { z } = window.Zod || window;
+
+        const registerSchema = z.object({
+            firstName: z
+                .string()
+                .min(1, "Le prénom est obligatoire.")
+                .min(2, "Le prénom doit contenir au moins 2 caractères")
+                .max(50, "Le prénom ne peut pas dépasser 50 caractères"),
+
+            lastName: z
+                .string()
+                .min(1, "Le nom est obligatoire.")
+                .min(2, "Le nom doit contenir au moins 2 caractères")
+                .max(50, "Le nom ne peut pas dépasser 50 caractères"),
+
+            email: z
+                .string()
+                .min(1, "L'adresse email est obligatoire.")
+                .email("Adresse email invalide"),
+
+            profession: z
+                .string()
+                .min(1, "La profession est obligatoire.")
+                .min(2, "La profession doit contenir au moins 2 caractères"),
+
+            password: z
+                .string()
+                .min(1, "Le mot de passe est obligatoire.")
+                .min(8, "Le mot de passe doit contenir au moins 8 caractères")
+                .regex(/[A-Z]/, "Le mot de passe doit contenir au moins une majuscule")
+                .regex(/[0-9]/, "Le mot de passe doit contenir au moins un chiffre")
+                .regex(/[^A-Za-z0-9]/, "Le mot de passe doit contenir un caractère spécial"),
+        });
+
+        function showResult(title, data, isError = false, isSuccess = false) {
+            const resultsDiv = document.getElementById('results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `result ${isError ? 'error' : ''} ${isSuccess ? 'success' : ''}`;
+            
+            let content = `═══════════════════════════════════════\n`;
+            content += `${title}\n`;
+            content += `═══════════════════════════════════════\n\n`;
+            content += data;
+            
+            resultDiv.textContent = content;
+            resultsDiv.insertBefore(resultDiv, resultsDiv.firstChild);
+        }
+
+        function testEmptyForm() {
+            const formData = {
+                firstName: "",
+                lastName: "",
+                email: "",
+                profession: "",
+                password: ""
+            };
+
+            try {
+                registerSchema.parse(formData);
+                showResult("❌ TEST 1 ÉCHOUÉ", "Le formulaire vide a été accepté (BUG!)", true);
+            } catch (err) {
+                if (err.errors) {
+                    let output = "✅ TEST 1 RÉUSSI - Erreurs détectées :\n\n";
+                    err.errors.forEach((error, index) => {
+                        output += `${index + 1}. Champ: ${error.path[0]}\n`;
+                        output += `   Message: "${error.message}"\n\n`;
+                    });
+                    output += `\n📊 Total: ${err.errors.length} erreurs détectées`;
+                    showResult("✅ Test 1: Formulaire vide", output, false, true);
+                }
+            }
+        }
+
+        function testShortFirstName() {
+            const formData = {
+                firstName: "A",
+                lastName: "Dupont",
+                email: "test@example.com",
+                profession: "Médecin",
+                password: "Secure123!"
+            };
+
+            try {
+                registerSchema.parse(formData);
+                showResult("❌ TEST 2 ÉCHOUÉ", "Le prénom court 'A' a été accepté (BUG!)", true);
+            } catch (err) {
+                if (err.errors) {
+                    let output = "✅ TEST 2 RÉUSSI - Erreur détectée :\n\n";
+                    output += `Champ: ${err.errors[0].path[0]}\n`;
+                    output += `Message: "${err.errors[0].message}"\n`;
+                    showResult("✅ Test 2: Prénom trop court", output, false, true);
+                }
+            }
+        }
+
+        function testInvalidEmail() {
+            const formData = {
+                firstName: "Jean",
+                lastName: "Dupont",
+                email: "test",
+                profession: "Médecin",
+                password: "Secure123!"
+            };
+
+            try {
+                registerSchema.parse(formData);
+                showResult("❌ TEST 3 ÉCHOUÉ", "L'email invalide 'test' a été accepté (BUG!)", true);
+            } catch (err) {
+                if (err.errors) {
+                    let output = "✅ TEST 3 RÉUSSI - Erreur détectée :\n\n";
+                    output += `Champ: ${err.errors[0].path[0]}\n`;
+                    output += `Message: "${err.errors[0].message}"\n`;
+                    showResult("✅ Test 3: Email invalide", output, false, true);
+                }
+            }
+        }
+
+        function testValidForm() {
+            const formData = {
+                firstName: "Jean",
+                lastName: "Dupont",
+                email: "jean.dupont@example.com",
+                profession: "Médecin",
+                password: "Secure123!"
+            };
+
+            try {
+                const result = registerSchema.parse(formData);
+                let output = "✅ TEST 4 RÉUSSI - Formulaire valide accepté !\n\n";
+                output += "Données validées :\n";
+                output += JSON.stringify(result, null, 2);
+                showResult("✅ Test 4: Formulaire valide", output, false, true);
+            } catch (err) {
+                showResult("❌ TEST 4 ÉCHOUÉ", `Un formulaire valide a été rejeté (BUG!)\n\n${JSON.stringify(err.errors, null, 2)}`, true);
+            }
+        }
+
+        function runAllTests() {
+            document.getElementById('results').innerHTML = '';
+            setTimeout(() => testEmptyForm(), 100);
+            setTimeout(() => testShortFirstName(), 300);
+            setTimeout(() => testInvalidEmail(), 500);
+            setTimeout(() => testValidForm(), 700);
+        }
+
+        // Lancer automatiquement au chargement
+        window.onload = function() {
+            setTimeout(() => {
+                showResult("🚀 Page chargée", "Cliquez sur 'Lancer tous les tests' pour commencer", false, false);
+            }, 500);
+        };
+    </script>
+</body>
+</html>
+

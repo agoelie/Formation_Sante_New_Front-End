@@ -2606,29 +2606,62 @@ function Register() {
   };
 
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: "" });
+    const { name, value } = e.target;
+    
+    // 🐛 DEBUG
+    console.log(`🔵 handleInputChange appelé:`, { name, value });
+    console.log(`🔵 Erreurs actuelles AVANT:`, { ...errors });
+    
+    // Mettre à jour les données du formulaire
+    setFormData({ ...formData, [name]: value });
+    
+    // Supprimer l'erreur du champ quand l'utilisateur commence à taper
+    if (errors[name]) {
+      console.log(`🟡 Erreur trouvée pour "${name}": "${errors[name]}"`);
+      const newErrors = { ...errors };
+      delete newErrors[name]; // Supprimer complètement l'erreur
+      setErrors(newErrors);
+      console.log(`✅ Erreur supprimée pour le champ: ${name}`);
+      console.log(`🔵 Erreurs APRÈS suppression:`, { ...newErrors });
+    } else {
+      console.log(`ℹ️ Pas d'erreur pour le champ: ${name}`);
+    }
   };
 
-  // ✅ Fonction corrigée
+  // ✅ Fonction de soumission avec validation Zod
   const handleSubmit = (e) => {
     e.preventDefault();
+    setMessage(""); // Réinitialiser le message
+
+    // 🐛 DEBUG: Afficher les données soumises
+    console.log("📝 Données du formulaire:", formData);
 
     try {
+      // Validation avec Zod
       registerSchema.parse(formData);
+      
+      // 🐛 DEBUG: Validation réussie
+      console.log("✅ Validation Zod réussie!");
+      
+      // Si la validation réussit, effacer toutes les erreurs
       setErrors({});
 
+      // Vérifier si l'email existe déjà
       const existingUser = users.find(u => u.email === formData.email);
       if (existingUser) {
         setMessage("❌ Cet email est déjà enregistré !");
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
       }
 
+      // Sauvegarder le nouvel utilisateur
       const newUsers = [...users, formData];
       saveUsers(newUsers);
 
       setMessage("✅ Inscription réussie ! Redirection en cours...");
+      window.scrollTo({ top: 0, behavior: 'smooth' });
 
+      // Réinitialiser le formulaire
       setFormData({
         firstName: "",
         lastName: "",
@@ -2641,13 +2674,53 @@ function Register() {
       setTimeout(() => navigate("/Login"), 1500);
 
     } catch (err) {
+      // 🐛 DEBUG: Afficher l'erreur complète
+      console.log("❌ Erreur capturée:", err);
+      console.log("Type d'erreur:", err.constructor.name);
+      console.log("err.issues:", err.issues); // Zod v4 utilise "issues"
+      console.log("err.errors:", err.errors); // Ancien Zod
+      
+      // Gestion des erreurs de validation Zod
       if (err instanceof z.ZodError) {
+        // 🐛 DEBUG: Afficher les erreurs Zod
+        console.log("✅ C'est une erreur Zod!");
+        
+        // Zod v4 utilise err.issues au lieu de err.errors
+        const zodErrors = err.issues || err.errors || [];
+        console.log("❌ Erreurs de validation Zod:", zodErrors);
+        
         const fieldErrors = {};
-        err.errors.forEach(error => {
-          fieldErrors[error.path[0]] = error.message;
+        
+        // Traiter les erreurs
+        zodErrors.forEach(error => {
+          if (error.path && error.path[0]) {
+            fieldErrors[error.path[0]] = error.message;
+            console.log(`   - ${error.path[0]}: ${error.message}`);
+          }
         });
+        
         setErrors(fieldErrors);
-        setMessage("⚠️ Veuillez corriger les erreurs avant de continuer.");
+        
+        // 🐛 DEBUG: Afficher l'état des erreurs
+        console.log("🔴 État errors après setErrors:", fieldErrors);
+        
+        // Compter le nombre d'erreurs
+        const errorCount = Object.keys(fieldErrors).length;
+        
+        if (errorCount > 0) {
+          setMessage(`❌ ${errorCount} erreur${errorCount > 1 ? 's' : ''} trouvée${errorCount > 1 ? 's' : ''}. Veuillez corriger les champs en rouge.`);
+        } else {
+          setMessage("❌ Une erreur est survenue. Veuillez vérifier les champs.");
+        }
+        
+        // Scroll vers le haut pour voir le message
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        // 🐛 DEBUG: Autre type d'erreur
+        console.error("❌ Erreur inattendue:", err);
+        console.error("Type:", typeof err);
+        console.error("Contenu:", JSON.stringify(err, null, 2));
+        setMessage("❌ Une erreur inattendue est survenue.");
       }
     }
   };
@@ -2702,13 +2775,37 @@ function Register() {
             <p className="text-gray-600">Remplissez les informations ci-dessous pour commencer</p>
           </div>
 
+          {/* 🐛 DEBUG: Afficher l'état des erreurs */}
+          {Object.keys(errors).length > 0 && (
+            <div className="bg-yellow-50 border-2 border-yellow-400 p-3 rounded-lg mb-4">
+              <p className="font-bold text-yellow-800">🐛 DEBUG - État des erreurs:</p>
+              <pre className="text-xs mt-2 text-yellow-900">{JSON.stringify(errors, null, 2)}</pre>
+            </div>
+          )}
+
+          {/* Message d'erreur global */}
+          {message && (
+            <div className={`p-4 rounded-xl mb-4 ${
+              message.includes("✅") 
+                ? "bg-green-50 border-2 border-green-500 text-green-700" 
+                : "bg-red-50 border-2 border-red-500 text-red-700"
+            }`}>
+              <p className="font-medium">{message}</p>
+            </div>
+          )}
+
           {/* Formulaire */}
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Prénom */}
             <div className="relative">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Prénom</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Prénom <span className="text-red-500">*</span>
+              </label>
               <div className="relative">
-                <User className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 ${focusedField==="firstName" ? "text-blue-600":"text-gray-400"}`} />
+                <User className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 ${
+                  errors.firstName ? "text-red-500" : 
+                  focusedField==="firstName" ? "text-blue-600" : "text-gray-400"
+                }`} />
                 <input
                   type="text"
                   name="firstName"
@@ -2717,17 +2814,33 @@ function Register() {
                   onFocus={() => setFocusedField("firstName")}
                   onBlur={() => setFocusedField(null)}
                   placeholder="Votre prénom"
-                  className={`w-full pl-10 pr-4 py-3 border-2 rounded-xl ${focusedField==="firstName" ? "border-blue-600 shadow-lg shadow-blue-600/25":"border-gray-200 hover:border-gray-300"}`}
+                  className={`w-full pl-10 pr-4 py-3 border-2 rounded-xl transition-all ${
+                    errors.firstName ? "border-red-500 bg-red-50" :
+                    focusedField==="firstName" ? "border-blue-600 shadow-lg shadow-blue-600/25" : 
+                    "border-gray-200 hover:border-gray-300"
+                  }`}
                 />
               </div>
-              {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>}
+              {errors.firstName && (
+                <div className="mt-2 flex items-start gap-2 bg-red-50 p-2 rounded-md border-l-4 border-red-500">
+                  <span className="text-red-500 text-lg">⚠️</span>
+                  <p className="text-red-700 text-sm font-medium flex-1">
+                    {errors.firstName}
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Nom */}
             <div className="relative">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Nom</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Nom <span className="text-red-500">*</span>
+              </label>
               <div className="relative">
-                <User className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 ${focusedField==="lastName" ? "text-blue-600":"text-gray-400"}`} />
+                <User className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 ${
+                  errors.lastName ? "text-red-500" : 
+                  focusedField==="lastName" ? "text-blue-600" : "text-gray-400"
+                }`} />
                 <input
                   type="text"
                   name="lastName"
@@ -2736,17 +2849,33 @@ function Register() {
                   onFocus={() => setFocusedField("lastName")}
                   onBlur={() => setFocusedField(null)}
                   placeholder="Votre nom"
-                  className={`w-full pl-10 pr-4 py-3 border-2 rounded-xl ${focusedField==="lastName" ? "border-blue-600 shadow-lg shadow-blue-600/25":"border-gray-200 hover:border-gray-300"}`}
+                  className={`w-full pl-10 pr-4 py-3 border-2 rounded-xl transition-all ${
+                    errors.lastName ? "border-red-500 bg-red-50" :
+                    focusedField==="lastName" ? "border-blue-600 shadow-lg shadow-blue-600/25" : 
+                    "border-gray-200 hover:border-gray-300"
+                  }`}
                 />
               </div>
-              {errors.lastName && <p className="text-red-500 text-xs mt-1">{errors.lastName}</p>}
+              {errors.lastName && (
+                <div className="mt-2 flex items-start gap-2 bg-red-50 p-2 rounded-md border-l-4 border-red-500">
+                  <span className="text-red-500 text-lg">⚠️</span>
+                  <p className="text-red-700 text-sm font-medium flex-1">
+                    {errors.lastName}
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Email */}
             <div className="relative">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Adresse email</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Adresse email <span className="text-red-500">*</span>
+              </label>
               <div className="relative">
-                <Mail className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 ${focusedField==="email" ? "text-blue-600":"text-gray-400"}`} />
+                <Mail className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 ${
+                  errors.email ? "text-red-500" : 
+                  focusedField==="email" ? "text-blue-600" : "text-gray-400"
+                }`} />
                 <input
                   type="email"
                   name="email"
@@ -2755,17 +2884,33 @@ function Register() {
                   onFocus={() => setFocusedField("email")}
                   onBlur={() => setFocusedField(null)}
                   placeholder="exemple@mail.com"
-                  className={`w-full pl-10 pr-4 py-3 border-2 rounded-xl ${focusedField==="email" ? "border-blue-600 shadow-lg shadow-blue-600/25":"border-gray-200 hover:border-gray-300"}`}
+                  className={`w-full pl-10 pr-4 py-3 border-2 rounded-xl transition-all ${
+                    errors.email ? "border-red-500 bg-red-50" :
+                    focusedField==="email" ? "border-blue-600 shadow-lg shadow-blue-600/25" : 
+                    "border-gray-200 hover:border-gray-300"
+                  }`}
                 />
               </div>
-              {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+              {errors.email && (
+                <div className="mt-2 flex items-start gap-2 bg-red-50 p-2 rounded-md border-l-4 border-red-500">
+                  <span className="text-red-500 text-lg">⚠️</span>
+                  <p className="text-red-700 text-sm font-medium flex-1">
+                    {errors.email}
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Profession */}
             <div className="relative">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Profession</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Profession <span className="text-red-500">*</span>
+              </label>
               <div className="relative">
-                <Briefcase className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 ${focusedField==="profession" ? "text-blue-600":"text-gray-400"}`} />
+                <Briefcase className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 ${
+                  errors.profession ? "text-red-500" : 
+                  focusedField==="profession" ? "text-blue-600" : "text-gray-400"
+                }`} />
                 <input
                   type="text"
                   name="profession"
@@ -2774,17 +2919,33 @@ function Register() {
                   onFocus={() => setFocusedField("profession")}
                   onBlur={() => setFocusedField(null)}
                   placeholder="Ex: Infirmier, Manager..."
-                  className={`w-full pl-10 pr-4 py-3 border-2 rounded-xl ${focusedField==="profession" ? "border-blue-600 shadow-lg shadow-blue-600/25":"border-gray-200 hover:border-gray-300"}`}
+                  className={`w-full pl-10 pr-4 py-3 border-2 rounded-xl transition-all ${
+                    errors.profession ? "border-red-500 bg-red-50" :
+                    focusedField==="profession" ? "border-blue-600 shadow-lg shadow-blue-600/25" : 
+                    "border-gray-200 hover:border-gray-300"
+                  }`}
                 />
               </div>
-              {errors.profession && <p className="text-red-500 text-xs mt-1">{errors.profession}</p>}
+              {errors.profession && (
+                <div className="mt-2 flex items-start gap-2 bg-red-50 p-2 rounded-md border-l-4 border-red-500">
+                  <span className="text-red-500 text-lg">⚠️</span>
+                  <p className="text-red-700 text-sm font-medium flex-1">
+                    {errors.profession}
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Mot de passe */}
             <div className="relative">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Mot de passe</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Mot de passe <span className="text-red-500">*</span>
+              </label>
               <div className="relative">
-                <Lock className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 ${focusedField==="password" ? "text-blue-600":"text-gray-400"}`} />
+                <Lock className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 ${
+                  errors.password ? "text-red-500" : 
+                  focusedField==="password" ? "text-blue-600" : "text-gray-400"
+                }`} />
                 <input
                   type={showPassword ? "text" : "password"}
                   name="password"
@@ -2793,7 +2954,11 @@ function Register() {
                   onFocus={() => setFocusedField("password")}
                   onBlur={() => setFocusedField(null)}
                   placeholder="Mot de passe sécurisé"
-                  className={`w-full pl-10 pr-12 py-3 border-2 rounded-xl ${focusedField==="password" ? "border-blue-600 shadow-lg shadow-blue-600/25":"border-gray-200 hover:border-gray-300"}`}
+                  className={`w-full pl-10 pr-12 py-3 border-2 rounded-xl transition-all ${
+                    errors.password ? "border-red-500 bg-red-50" :
+                    focusedField==="password" ? "border-blue-600 shadow-lg shadow-blue-600/25" : 
+                    "border-gray-200 hover:border-gray-300"
+                  }`}
                 />
                 <button
                   type="button"
@@ -2803,7 +2968,14 @@ function Register() {
                   {showPassword ? <EyeOff className="w-5 h-5 text-gray-400" /> : <Eye className="w-5 h-5 text-gray-400" />}
                 </button>
               </div>
-              {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
+              {errors.password && (
+                <div className="mt-2 flex items-start gap-2 bg-red-50 p-2 rounded-md border-l-4 border-red-500">
+                  <span className="text-red-500 text-lg">⚠️</span>
+                  <p className="text-red-700 text-sm font-medium flex-1">
+                    {errors.password}
+                  </p>
+                </div>
+              )}
 
               {formData.password && (
                 <div className="mt-3">
@@ -2823,12 +2995,10 @@ function Register() {
             </div>
 
             {/* Bouton submit */}
-            <button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-200">
-              Créer mon compte
+            <button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-200 hover:from-blue-700 hover:to-blue-800 transform hover:scale-105">
+              S'inscrire
             </button>
           </form>
-
-          {message && <p className={`mt-2 ${message.includes("✅") ? "text-green-600" : "text-red-600"}`}>{message}</p>}
 
           <div className="mt-8 text-center">
             <p className="text-gray-600">
